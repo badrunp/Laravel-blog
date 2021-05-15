@@ -29,6 +29,8 @@ Route::middleware(['auth'])->name('admin.')->group(function(){
     Route::get('/admin/blog', [AdminBlogController::class, 'index'])->name('blogIndex');
     Route::get('/admin/blog/create', [AdminBlogController::class, 'create'])->name('blogCreate');
     Route::post('/admin/blog/insert', [AdminBlogController::class, 'store'])->name('blogStore');
+    Route::get('/admin/blog/edit/{slug}', [AdminBlogController::class, 'edit'])->name('blogEdit');
+    Route::put('/admin/blog/{id}', [AdminBlogController::class, 'update'])->name('blogUpdate');
 });
 
 Route::middleware(['guest'])->name('auth.')->group(function(){

@@ -37,6 +37,13 @@
                             <p class="block text-red-500 text-sm">{{ $message }}</p>
                         </div>
                         @enderror
+                        @if(session()->has('tag_message'))
+                        <div class="mt-1">
+                            <p class="block text-red-500 text-sm">{{ session()->get('tag_message') }}</p>
+                        </div>
+                        @endif
+
+
                     </div>
                     <div class="mb-3">
                         <label class="text-base text-gray-600 mb-1 block" for="image">Image</label>
