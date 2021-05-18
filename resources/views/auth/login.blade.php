@@ -48,11 +48,8 @@
                     </div>
                     <div class="relative mb-4 flex justify-between">
                         <div class="flex items-center space-x-2">
-                            <input type="checkbox" class="h-5 w-5 cursor-pointer" name="remeber" />
-                            <span class="block text-gray-500">Remember</span>
-                        </div>
-                        <div>
-                            <a href="#" class="text-sm text-blue-500">Forgot password?</a>
+                            <input type="checkbox" class="cursor-pointer" style="width: 15px; height: 15px;" name="remember" />
+                            <span class="block text-gray-500 text-sm">Remember</span>
                         </div>
                     </div>
                     <div class="relative">

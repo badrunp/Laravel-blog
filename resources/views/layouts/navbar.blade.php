@@ -1,4 +1,4 @@
-<div class="bg-red-500 fixed shadow-lg z-10 w-full top-0">
+<div class="bg-red-500 fixed z-10 w-full top-0">
     <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 h-14 md:h-16">
         <div class="flex items-center h-full justify-between">
             <div class="hidden md:flex items-center h-full space-x-5">
@@ -30,7 +30,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute ml-2 text-white" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                     </svg>
-                    <input type="text" class="rounded py-2 text-sm pr-2 pl-8 focus:outline-none bg-red-600 text-white focus:shadow-inner placeholder-white tracking-wide" placeholder="Search..." />
+                    <input type="text" class="rounded py-2 text-sm pr-2 pl-8 focus:outline-none bg-red-600 text-white focus:shadow-inner placeholder-white tracking-wide font-medium" placeholder="Search..." />
                 </div>
                 @auth
                 <ul class="relative">
@@ -70,10 +70,10 @@
                 @else
                 <ul class="flex space-x-2 items-center">
                     <li class="flex items-center">
-                        <a class="py-2 px-4 bg-white rounded border border-transparent shadow-md text-xs md:text-sm font-medium hover:text-red-500 transition ease-out duration-150 focus:outline-none" href="{{ route('auth.login') }}">Login</a>
+                        <a class="py-2 px-4 bg-white rounded border border-transparent shadow-md text-xs md:text-xs font-medium hover:text-red-500 transition ease-out duration-150 focus:outline-none" href="{{ route('auth.login') }}">Login</a>
                     </li>
                     <li class="flex items-center">
-                        <a class="py-2 px-4 bg-white rounded text-xs md:text-sm font-medium bg-opacity-40 text-white shadow-md border border-gray-100 focus:outline-none hover:bg-opacity-50 transition ease-out duration-150" href="{{ route('auth.signup') }}">Sign up</a>
+                        <a class="py-2 px-4 bg-white rounded text-xs md:text-xs font-medium bg-opacity-40 text-white shadow-md border border-gray-100 focus:outline-none hover:bg-opacity-50 transition ease-out duration-150" href="{{ route('auth.signup') }}">Sign up</a>
                     </li>
                 </ul>
                 @endauth

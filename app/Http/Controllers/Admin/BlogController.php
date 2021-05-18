@@ -14,16 +14,27 @@ use function PHPUnit\Framework\fileExists;
 
 class BlogController extends Controller
 {
-    public function index()
+
+
+    public function index(Request $request)
     {
-        return view('blog.index')->with('posts', BlogPost::where('status', true)->orderBy('updated_at', 'DESC')->get());
+        if($request->query('search')){
+            $search = BlogPost::where('title', 'like', '%' . $request->query('search') .'%')->orderBy('updated_at', 'DESC')->paginate(5);
+        }else{
+            $search = BlogPost::orderBy('updated_at', 'DESC')->paginate(5);
+        }
+
+        return view('admin.blog.index')->with('posts', $search);
+    }
+
+    public function detail($slug){
+        return view('admin.blog.detail')->with('post', BlogPost::where('slug', $slug)->first());
     }
 
     public function create()
     {
-        return view('blog.add-post');
+        return view('admin.blog.add-post');
     }
-
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -55,7 +66,7 @@ class BlogController extends Controller
             $file->storeAs('public/uploads/', $filename);
             BlogPost::create([
                 'title' => $request->title,
-                'slug' => Str::slug($request->title),
+                'slug' => Str::slug($request->title) . '-' . Carbon::now()->timestamp,
                 'body' => $request->body,
                 'tag' => $allTag,
                 'image' => $filename,
@@ -75,7 +86,7 @@ class BlogController extends Controller
         if (!$post) {
             abort(404);
         }
-        return view('blog.edit')->with('post', $post);
+        return view('admin.blog.edit')->with('post', $post);
     }
 
     public function update(Request $request, $id)
@@ -125,5 +136,18 @@ class BlogController extends Controller
 
         $request->session()->flash('message', 'updated Post sucessfully');
         return redirect()->route('admin.blogIndex');
+    }
+
+    public function delete($id){
+
+        $post = BlogPost::findOrFail($id);
+        $post->delete();
+
+        if(Storage::exists('public/uploads/' . $post->image)){
+            Storage::delete('public/uploads/' . $post->image);
+        }
+
+        session()->flash('message', 'updated Post sucessfully');
+        return back(); 
     }
 }
