@@ -39,7 +39,7 @@
                     </tr>
                     <tr class="border-b border-gray-300">
                         <td class="text-base tracking-wide py-2 text-gray-600 w-28 pr-10 font-medium">Status</td>
-                        <td class="text-base tracking-wide py-2 text-gray-600">{!! $post->status ? '<p class="text-green-500">[Active]</p>' : '<p class="text-green-500">[Un Active]</p>' !!}</td>
+                        <td class="text-base tracking-wide py-2 text-gray-600">{!! $post->status ? '<p class="text-green-500">[Active]</p>' : '<p class="text-red-500">[Un Active]</p>' !!}</td>
                     </tr>
                     <tr class="border-b border-gray-300">
                         <td class="text-base tracking-wide py-2 text-gray-600 w-28 pr-10 font-medium">Created</td>

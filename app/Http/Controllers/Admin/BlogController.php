@@ -19,9 +19,9 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         if($request->query('search')){
-            $search = BlogPost::where('title', 'like', '%' . $request->query('search') .'%')->orderBy('updated_at', 'DESC')->paginate(5);
+            $search = BlogPost::where('title', 'like', '%' . $request->query('search') .'%')->orderBy('created_at', 'DESC')->paginate(5);
         }else{
-            $search = BlogPost::orderBy('updated_at', 'DESC')->paginate(5);
+            $search = BlogPost::orderBy('created_at', 'DESC')->paginate(5);
         }
 
         return view('admin.blog.index')->with('posts', $search);
@@ -149,5 +149,42 @@ class BlogController extends Controller
 
         session()->flash('message', 'updated Post sucessfully');
         return back(); 
+    }
+    
+    public function statusEdit($slug, $status){
+        $post = BlogPost::where(['slug' => $slug])->first();
+        if (!$post) {
+            abort(404);
+        }
+        $post->update([
+            'status' => $status
+        ]);
+            
+        session()->flash('message', 'updated status Post sucessfully');
+        return back();
+    }
+    public function isTrandingEdit($slug, $tranding){
+        $post = BlogPost::where(['slug' => $slug])->first();
+        if (!$post) {
+            abort(404);
+        }
+        $post->update([
+            'is_tranding' => $tranding
+        ]);
+            
+        session()->flash('message', 'updated is tranding Post sucessfully');
+        return back();
+    }
+    public function isTopViewsEdit($slug, $views){
+        $post = BlogPost::where(['slug' => $slug])->first();
+        if (!$post) {
+            abort(404);
+        }
+        $post->update([
+            'is_top_views' => $views
+        ]);
+            
+        session()->flash('message', 'updated is top views Post sucessfully');
+        return back();
     }
 }

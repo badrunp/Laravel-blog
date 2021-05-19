@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/logout', [LogoutController::class, 'store'])->name('auth.logout')->middleware('auth');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+Route::get('/blog/search', [BlogController::class, 'search'])->name('blog.search');
+Route::get('/blog/{slug}', [BlogController::class, 'detailt'])->name('blog.detailt');
 
 Route::middleware(['auth'])->name('admin.')->group(function(){
     Route::get('/admin/blog', [AdminBlogController::class, 'index'])->name('blogIndex');
@@ -32,6 +34,9 @@ Route::middleware(['auth'])->name('admin.')->group(function(){
     Route::get('/admin/blog/detail/{slug}', [AdminBlogController::class, 'detail'])->name('blogDetail');
     Route::put('/admin/blog/{id}', [AdminBlogController::class, 'update'])->name('blogUpdate');
     Route::delete('/admin/blog/{id}', [AdminBlogController::class, 'delete'])->name('blogDelete');
+    Route::get('/admin/blog/{slug}/status/{status}', [AdminBlogController::class, 'statusEdit'])->name('blogStatusEdit');
+    Route::get('/admin/blog/{slug}/tranding/{tranding}', [AdminBlogController::class, 'isTrandingEdit'])->name('blogTrandingEdit');
+    Route::get('/admin/blog/{slug}/views/{views}', [AdminBlogController::class, 'isTopViewsEdit'])->name('blogTopViewsEdit');
 });
 
 Route::middleware(['guest'])->name('auth.')->group(function(){

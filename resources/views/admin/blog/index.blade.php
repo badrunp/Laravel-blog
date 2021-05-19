@@ -31,9 +31,10 @@
                         <tr class="bg-gray-100">
                             <th class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-600">No</th>
                             <th class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-600">Title</th>
+                            <th class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-600">Status</th>
                             <th class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-600">Author</th>
-                            <th class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-600">Tag</th>
-                            <th class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-600">Image</th>
+                            <th class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-600">Is Tranding</th>
+                            <th class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-600">Top Views</th>
                             <th class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-600">Action</th>
                         </tr>
                     </thead>
@@ -42,11 +43,28 @@
                         @forelse($posts as $key => $post)
                         <tr class="border-b border-gray-200">
                             <td class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-400 font-normal">{{ $posts->firstItem() + $key }}</td>
-                            <td class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-400 font-normal"><?= $post->title ?></td>
-                            <td class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-400 font-normal"><?= $post->user->username ?></td>
-                            <td class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-400 font-normal"><?= $post->tag ?></td>
-                            <td class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-400 font-normal">
-                                <img src="{{ asset('storage/uploads/' . $post->image ) }}" width="50" />
+                            <td class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-400 font-normal">{{ Str::limit($post->title, 15) }}</td>
+                            <td class="py-3 px-5">
+                                @if($post->status === 1)
+                                <a href="{{ route('admin.blogStatusEdit', ['slug' => $post->slug, 'status' => 0]) }}" class="text-xs py-2 px-4 bg-green-400 font-medium text-white rounded focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-300">Active</a>
+                                @else
+                                <a href="{{ route('admin.blogStatusEdit', ['slug' => $post->slug, 'status' => 1]) }}" class="text-xs py-2 px-4 bg-red-400 font-medium text-white rounded focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-300">Un Active</a>
+                                @endif
+                            </td>
+                            <td class="text-sm py-3 px-5 tracking-wide leading-5 text-gray-400 font-normal">{{ $post->user->username }}</td>
+                            <td class="py-3 px-5">
+                                @if($post->is_tranding === 1)
+                                <a href="{{ route('admin.blogTrandingEdit', ['slug' => $post->slug, 'tranding' => 0]) }}" class="text-xs py-2 px-4 bg-green-400 font-medium text-white rounded focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-300">Active</a>
+                                @else
+                                <a href="{{ route('admin.blogTrandingEdit', ['slug' => $post->slug, 'tranding' => 1]) }}" class="text-xs py-2 px-4 bg-red-400 font-medium text-white rounded focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-300">Un Active</a>
+                                @endif
+                            </td>
+                            <td class="py-3 px-5">
+                                @if($post->is_top_views === 1)
+                                <a href="{{ route('admin.blogTopViewsEdit', ['slug' => $post->slug, 'views' => 0]) }}" class="text-xs py-2 px-4 bg-green-400 font-medium text-white rounded focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-300">Active</a>
+                                @else
+                                <a href="{{ route('admin.blogTopViewsEdit', ['slug' => $post->slug, 'views' => 1]) }}" class="text-xs py-2 px-4 bg-red-400 font-medium text-white rounded focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-300">Un Active</a>
+                                @endif
                             </td>
                             <td class="flex items-center py-3 px-5 space-x-2">
                                 <button data-id="{{ $post->id }}" data-title="{{ $post->title }}" class="btn-delete-post py-2 px-3 bg-red-500 text-white text-xs rounded font-medium hover:bg-red-600 transition duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-1">
